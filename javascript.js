@@ -11,6 +11,9 @@
     8.show game result
 */
 
+//GLOBAL VARIABLES
+let playerScore = 0;
+let computerScore =0;
 
 function getPlayerChoice() {
     let playerInput = prompt("Rock, Paper or Scissors?")
@@ -69,11 +72,13 @@ function playRound () {
     if (playerChoice === "Rock" && computerChoice === "Scissors" ||  // player wins cases
         playerChoice === "Scissors" && computerChoice === "Paper" ||
         playerChoice === "Paper" && computerChoice === "Rock") { 
+        playerScore++;
         return `You win: ${playerChoice} beats ${computerChoice}`;
     }
     else if (computerChoice === "Rock" && playerChoice === "Scissors" ||  // computer wins cases
     computerChoice === "Scissors" && playerChoice === "Paper" ||
     computerChoice === "Paper" && playerChoice === "Rock") { 
+        computerScore++;
     return `You lose: ${computerChoice} beats ${playerChoice}`;
 }
     else if (computerChoice === playerChoice){
@@ -82,7 +87,15 @@ function playRound () {
     
 }
 
-console.log(playRound());
-console.log(playRound());
+function playGame() { // play all rounds, display round number, display final result at the end
+    
 
-//`Player: ${playerChoice}`; for ease of reading on console later
+    for (let round = 1; round <=5; round ++) {
+        console.log(`Round ${round}: ${playRound()}`); 
+    }
+
+    console.log(`Final Score: Player:${playerScore}, Computer:${computerScore}`); //Display Final Score
+}
+
+playGame();
+
