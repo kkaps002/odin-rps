@@ -10,6 +10,8 @@
     8. stop game at round 5 (exit repetition loop?)
     8.show final game score on the results section
 */
+
+
 // EVENT LISTENERS /////////////////////////////////////////////////////////////
 
 //get references to elements in HTML by class or id
@@ -31,7 +33,7 @@ btn.forEach(function(button) {
             //trigger get getPlayerChoice and pass playerInput value from button that was pressed 
         }
         else {
-            return
+            return;
         }
         
     });
