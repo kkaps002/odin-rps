@@ -11,42 +11,32 @@
     8.show game result
 */
 
+//GAME LOGIC ////////////////////////////////////////////////////////////////////
+
 //GLOBAL VARIABLES
 let playerScore = 0;
 let computerScore =0;
 
-function getPlayerChoice() {
-    let playerInput = prompt("Rock, Paper or Scissors?")
-    let playerChoice = "_"; // string has content to not trigger null condition
+function getPlayerChoice(playerInput) {
+    
+    let playerChoice = "_"; // string initialised with content to not trigger null 
 
-    if (playerInput === null) { // first check if player presses cancel on the prompt, cannot check later because using .toUpperCase on null causes TypeError
-        alert("You need to make a choice!");
-        return getPlayerChoice(); // exit the function and call it again 
+     if (playerInput=== "Rock") { //convert both to upper case to make case insensitive
+        playerChoice = "Rock";    
     }
-    else if (playerInput.toUpperCase() === "Rock".toUpperCase()) { //convert both to upper case to make case insensitive
-        playerChoice = "Rock";
-    }
-    else if (playerInput.toUpperCase() === "Paper".toUpperCase()) { 
+    else if (playerInput === "Paper") { 
         playerChoice = "Paper";
     }
-    else if (playerInput.toUpperCase() === "Scissors".toUpperCase()) { 
+    else if (playerInput === "Scissors") { 
         playerChoice = "Scissors";
     }
-    else {
-        //console.log("Unknown");
-        //playerChoice = "Unknown Player Choice" // if choice unknown ask again until choice is valid
-        alert("Make a valid choice!");  
-        return getPlayerChoice(); // exit the function and call it again 
-    }
-
-    return playerChoice; // return valid inputs
-}
-
-function getComputerChoice() {
     
+    playerChoiceDisplay.textContent = `Player: ${playerChoice}`; // change the display to what the user chose
+    return playRound(playerChoice); // return valid inputs
+}
+function getComputerChoice() { 
     let randomNum = Math.floor(Math.random() * ((3-1)+1) + 1); //generates 1,2 or 3
     let computerChoice = "";
-
     // switch statement because the number of choices is finite 
    switch(randomNum) {
     case 1:
@@ -58,44 +48,57 @@ function getComputerChoice() {
     case 3:
         computerChoice = "Scissors";
   }
-
+  computerChoiceDisplay.textContent = `Computer: ${computerChoice}`; // change the display to what the computer chose
   return computerChoice; // value to be sent to other functions
 }
-
-function playRound () {
-    let playerChoice = getPlayerChoice();
-    console.log(`Player: ${playerChoice}`);
-    let computerChoice = getComputerChoice();
-    console.log(`Computer: ${computerChoice}`);
-
+function playRound (playerChoice) { // plays round and returns result string
     
+    let computerChoice = getComputerChoice();
+
     if (playerChoice === "Rock" && computerChoice === "Scissors" ||  // player wins cases
         playerChoice === "Scissors" && computerChoice === "Paper" ||
         playerChoice === "Paper" && computerChoice === "Rock") { 
         playerScore++;
-        return `You win: ${playerChoice} beats ${computerChoice}`;
+        return results.textContent =`You win: ${playerChoice} beats ${computerChoice}`;
     }
     else if (computerChoice === "Rock" && playerChoice === "Scissors" ||  // computer wins cases
     computerChoice === "Scissors" && playerChoice === "Paper" ||
     computerChoice === "Paper" && playerChoice === "Rock") { 
         computerScore++;
-    return `You lose: ${computerChoice} beats ${playerChoice}`;
+    return results.textContent =`You lose: ${computerChoice} beats ${playerChoice}`;
 }
     else if (computerChoice === playerChoice){
-        return "It's a tie!";
+        return results.textContent ="It's a tie!";
     } 
-    
 }
-
-function playGame() { // play all rounds, display round number, display final result at the end
-    
-
+function playGame() { // play 5 rounds, display round number, display final result at the end
     for (let round = 1; round <=5; round ++) {
-        console.log(`Round ${round}: ${playRound()}`); 
+       console.log(`Round ${round}: ${playRound()}`); // playround is called here!
     }
-
     console.log(`Final Score: Player:${playerScore}, Computer:${computerScore}`); //Display Final Score
 }
 
-playGame();
+
+// EVENT LISTENERS /////////////////////////////////////////////////////////////
+
+//get references to button elements in HTML by class
+const btn = document.querySelectorAll('.btn');
+
+//get reference to results div in HTML by id
+const results = document.getElementById('results');
+
+// get references to computer and player choice display divs by id 
+const playerChoiceDisplay = document.getElementById('playerChoiceDisplay');
+const computerChoiceDisplay = document.getElementById('computerChoiceDisplay');
+
+//add click event listeners to buttons that call an unnamed function when pressed
+btn.forEach(function(button) {
+    button.addEventListener("click",function(){
+        let playerInput = (`${button.textContent}`);
+        return getPlayerChoice(playerInput);
+    });
+})
+
+
+
 
