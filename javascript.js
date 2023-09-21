@@ -1,21 +1,51 @@
 //PSEUDOCODE 
 /*
     1.initialize round count to 0 and score count set to 0-0
-    2. ask player what they choose
+    2. wait for the player to choose between the three buttons (Rock, Paper or Scissors)
     3.when the player decides, generate random choice for computer
     4.compare the two choices
-    5.return result of comparison
+    5.show result of comparison on the results section 
     6. update score 
     7. repeat process 5 times
     8. stop game at round 5 (exit repetition loop?)
-    8.show game result
+    8.show final game score on the results section
 */
+// EVENT LISTENERS /////////////////////////////////////////////////////////////
+
+//get references to elements in HTML by class or id
+const btn = document.querySelectorAll('.btn');
+const results = document.getElementById('results');
+const roundCounter = document.getElementById('roundCounter');
+const playerChoiceDisplay = document.getElementById('playerChoiceDisplay');
+const computerChoiceDisplay = document.getElementById('computerChoiceDisplay');
+const finalScore = document.getElementById('finalScore');
+
+//add click event listeners to buttons that call an unnamed function when pressed
+btn.forEach(function(button) {
+    button.addEventListener("click",function(){
+        if (round < 5) {
+            let playerInput = (`${button.textContent}`);
+            roundCounter.textContent = `Round: ${round + 1}`;
+            checkRound();
+            return getPlayerChoice(playerInput); 
+            //trigger get getPlayerChoice and pass playerInput value from button that was pressed 
+        }
+        else {
+            return
+        }
+        
+    });
+})
 
 //GAME LOGIC ////////////////////////////////////////////////////////////////////
 
 //GLOBAL VARIABLES
 let playerScore = 0;
 let computerScore =0;
+let round = 0;
+roundCounter.textContent = `Round: ${round}`;
+playerChoiceDisplay.textContent = `Player:`;
+computerChoiceDisplay.textContent = `Computer:`;
 
 function getPlayerChoice(playerInput) {
     
@@ -51,53 +81,40 @@ function getComputerChoice() {
   computerChoiceDisplay.textContent = `Computer: ${computerChoice}`; // change the display to what the computer chose
   return computerChoice; // value to be sent to other functions
 }
-function playRound (playerChoice) { // plays round and returns result string
-    
-    let computerChoice = getComputerChoice();
+function playRound (playerChoice) { // plays round and changes the text of results display
+    if(round < 5) {
+        let computerChoice = getComputerChoice();
 
-    if (playerChoice === "Rock" && computerChoice === "Scissors" ||  // player wins cases
-        playerChoice === "Scissors" && computerChoice === "Paper" ||
-        playerChoice === "Paper" && computerChoice === "Rock") { 
-        playerScore++;
-        return results.textContent =`You win: ${playerChoice} beats ${computerChoice}`;
+        if (playerChoice === "Rock" && computerChoice === "Scissors" ||  // player wins cases
+            playerChoice === "Scissors" && computerChoice === "Paper" ||
+            playerChoice === "Paper" && computerChoice === "Rock") { 
+            playerScore++; //increase player score
+            return results.textContent =`You win: ${playerChoice} beats ${computerChoice}`;
+        }
+        else if (computerChoice === "Rock" && playerChoice === "Scissors" ||  // computer wins cases
+        computerChoice === "Scissors" && playerChoice === "Paper" ||
+        computerChoice === "Paper" && playerChoice === "Rock") { 
+            computerScore++; //increase computer score
+        return results.textContent =`You lose: ${computerChoice} beats ${playerChoice}`;
     }
-    else if (computerChoice === "Rock" && playerChoice === "Scissors" ||  // computer wins cases
-    computerChoice === "Scissors" && playerChoice === "Paper" ||
-    computerChoice === "Paper" && playerChoice === "Rock") { 
-        computerScore++;
-    return results.textContent =`You lose: ${computerChoice} beats ${playerChoice}`;
-}
-    else if (computerChoice === playerChoice){
-        return results.textContent ="It's a tie!";
-    } 
-}
-function playGame() { // play 5 rounds, display round number, display final result at the end
-    for (let round = 1; round <=5; round ++) {
-       console.log(`Round ${round}: ${playRound()}`); // playround is called here!
+        else if (computerChoice === playerChoice){
+            return results.textContent ="It's a tie!"; 
+        } 
     }
-    console.log(`Final Score: Player:${playerScore}, Computer:${computerScore}`); //Display Final Score
+    checkRound(); 
+}
+function checkRound() { // play 5 rounds, display round number, display final result at the end
+    if (round <5) {
+        round++;
+        finalScore.textContent = `Score: Player: ${playerScore}, Computer: ${computerScore}`;
+    }
+    else {
+        return;
+    }
 }
 
 
-// EVENT LISTENERS /////////////////////////////////////////////////////////////
 
-//get references to button elements in HTML by class
-const btn = document.querySelectorAll('.btn');
-
-//get reference to results div in HTML by id
-const results = document.getElementById('results');
-
-// get references to computer and player choice display divs by id 
-const playerChoiceDisplay = document.getElementById('playerChoiceDisplay');
-const computerChoiceDisplay = document.getElementById('computerChoiceDisplay');
-
-//add click event listeners to buttons that call an unnamed function when pressed
-btn.forEach(function(button) {
-    button.addEventListener("click",function(){
-        let playerInput = (`${button.textContent}`);
-        return getPlayerChoice(playerInput);
-    });
-})
 
 
 
