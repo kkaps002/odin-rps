@@ -21,6 +21,7 @@ const roundCounter = document.getElementById('roundCounter');
 const playerChoiceDisplay = document.getElementById('playerChoiceDisplay');
 const computerChoiceDisplay = document.getElementById('computerChoiceDisplay');
 const finalScore = document.getElementById('finalScore');
+const restart = document.getElementById('restart');
 
 //add click event listeners to buttons that call an unnamed function when pressed
 btn.forEach(function(button) {
@@ -32,11 +33,17 @@ btn.forEach(function(button) {
             return getPlayerChoice(playerInput); 
             //trigger get getPlayerChoice and pass playerInput value from button that was pressed 
         }
-        else {
+        else { // if round == 5 button click does nothing 
             return;
         }
         
     });
+
+    //separated restart button by id so it has different function when pressed 
+    restart.addEventListener("click", function() {
+        round = 0;
+        restartGame();
+    })
 })
 
 //GAME LOGIC ////////////////////////////////////////////////////////////////////
@@ -45,9 +52,16 @@ btn.forEach(function(button) {
 let playerScore = 0;
 let computerScore =0;
 let round = 0;
+
+//display info initialization 
 roundCounter.textContent = `Round: ${round}`;
-playerChoiceDisplay.textContent = `Player:`;
-computerChoiceDisplay.textContent = `Computer:`;
+playerChoiceDisplay.textContent = `Player: Waiting`;
+computerChoiceDisplay.textContent = `Computer: Waiting`;
+results.textContent = 'Make your choice! 5 rounds.'
+finalScore.textContent = `Score: Player: 0, Computer: 0`;
+restart.textContent = "Play another game?";
+restart.style.display= "none";
+
 
 function getPlayerChoice(playerInput) {
     
@@ -90,20 +104,23 @@ function playRound (playerChoice) { // plays round and changes the text of resul
         if (playerChoice === "Rock" && computerChoice === "Scissors" ||  // player wins cases
             playerChoice === "Scissors" && computerChoice === "Paper" ||
             playerChoice === "Paper" && computerChoice === "Rock") { 
-            playerScore++; //increase player score
+            playerScore++; 
             return results.textContent =`You win: ${playerChoice} beats ${computerChoice}`;
         }
         else if (computerChoice === "Rock" && playerChoice === "Scissors" ||  // computer wins cases
         computerChoice === "Scissors" && playerChoice === "Paper" ||
         computerChoice === "Paper" && playerChoice === "Rock") { 
-            computerScore++; //increase computer score
+            computerScore++;
         return results.textContent =`You lose: ${computerChoice} beats ${playerChoice}`;
     }
         else if (computerChoice === playerChoice){
             return results.textContent ="It's a tie!"; 
         } 
     }
-    checkRound(); 
+    else { //play another game 
+        restart.style.display= "block"; 
+    }
+    checkRound(); //always checks round on button click
 }
 function checkRound() { // play 5 rounds, display round number, display final result at the end
     if (round <5) {
@@ -115,6 +132,15 @@ function checkRound() { // play 5 rounds, display round number, display final re
     }
 }
 
+function restartGame() {
+    roundCounter.textContent = `Round: ${round}`;
+playerChoiceDisplay.textContent = `Player: Waiting`;
+computerChoiceDisplay.textContent = `Computer: Waiting`;
+results.textContent = 'Make your choice! 5 rounds.'
+finalScore.textContent = `Score: Player: 0, Computer: 0`;
+restart.textContent = "Play another game?";
+restart.style.display= "none";
+}
 
 
 

@@ -1,7 +1,7 @@
 body {
     background-color: darkgreen;
     font-family: "Silkscreen";
-    font-size: small;
+    font-size: large;
     color: white;
     display: flex;
     flex-direction: column;
@@ -9,10 +9,14 @@ body {
     gap: 8px;
 }
 
+body > * {
+    width: 313px;
+}
+
 .btn {
     all:unset;
     border: 2px dotted red;
-    border-radius: 10%; 
+    font-size:x-large;
     transition-duration: 0.4s; 
 }
 
@@ -20,4 +24,26 @@ body {
    
     background-color: green;
     border: 2px dotted yellow;
+}
+
+#roundDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    outline: dotted 2px yellowgreen;
+    gap: 5px;
+    width: 313px;
+}
+
+#roundCounter {
+    margin-right: auto;
+    color: red;
+}
+
+#results {
+    /* margin-right: auto; */
+}
+
+#finalScore {
+    background-color: green;
 }
