@@ -42,6 +42,8 @@ btn.forEach(function(button) {
     //separated restart button by id so it has different function when pressed 
     restart.addEventListener("click", function() {
         round = 0;
+        playerScore =0;
+        computerScore=0;
         restartGame();
     })
 })
