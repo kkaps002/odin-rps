@@ -9,8 +9,13 @@ body {
     gap: 8px;
 }
 
-body > * {
-    width: 313px;
+#main-container {
+    width: 350px;
+   outline: 2px solid red;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
 }
 
 .btn {
@@ -18,6 +23,7 @@ body > * {
     border: 2px dotted red;
     font-size:x-large;
     transition-duration: 0.4s; 
+    margin: 5px;
 }
 
 .btn:hover {
@@ -33,17 +39,21 @@ body > * {
     outline: dotted 2px yellowgreen;
     gap: 5px;
     width: 313px;
+    margin: 20px;
 }
 
 #roundCounter {
-    margin-right: auto;
+    
     color: red;
 }
 
-#results {
-    /* margin-right: auto; */
+/* #results {
+     margin-right: auto;
 }
+ */
 
 #finalScore {
     background-color: green;
+    margin: 5%;
+    width: 350px;
 }
