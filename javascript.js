@@ -61,8 +61,8 @@ playerChoiceDisplay.textContent = `Player: Waiting`;
 computerChoiceDisplay.textContent = `Computer: Waiting`;
 results.textContent = 'Make your choice! 5 rounds.'
 finalScore.textContent = `Score: Player: 0, Computer: 0`;
-restart.textContent = "Play another game?";
-restart.style.display= "none";
+restart.textContent = "";
+restart.style.pointerEvents = "none";
 
 
 function getPlayerChoice(playerInput) {
@@ -120,7 +120,8 @@ function playRound (playerChoice) { // plays round and changes the text of resul
         } 
     }
     else { //play another game 
-        restart.style.display= "block"; 
+        restart.style.pointerEvents = "auto";
+        restart.textContent = "Play another game?";
     }
     checkRound(); //always checks round on button click
 }
@@ -140,8 +141,8 @@ playerChoiceDisplay.textContent = `Player: Waiting`;
 computerChoiceDisplay.textContent = `Computer: Waiting`;
 results.textContent = 'Make your choice! 5 rounds.'
 finalScore.textContent = `Score: Player: 0, Computer: 0`;
-restart.textContent = "Play another game?";
-restart.style.display= "none";
+restart.textContent = "";
+restart.style.pointerEvents = "none"; // deactivate the hover effect after click
 }
 
 
